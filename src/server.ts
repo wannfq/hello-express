@@ -1,11 +1,4 @@
-import { App } from "./app";
-// import { MicroServer, Router } from "micro-server"
-import { ApiRoutes } from "./routes"
+import {App} from "./app"
 
-const PORT = 3000;
-
-const serve: App= new App()
-
-serve.app.listen(PORT, () => {
-  console.log("Express server listening on port " + PORT);
-});
+const server = new App()
+server.start(3000)
