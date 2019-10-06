@@ -4,3 +4,9 @@
 /dist/
 /logs/
 .DS_Store
+
+.idea
+
+coverage/
+
+package-lock.json

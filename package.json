@@ -4,20 +4,34 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.6.2",
     "@types/express": "^4.16.0",
+    "@types/jest": "^24.0.18",
     "@types/node": "^10.12.12",
+    "babel-jest": "^24.9.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "jest": "^24.9.0",
     "mongoose": "^5.3.15",
+    "ts-jest": "^24.1.0",
     "ts-node": "^7.0.1",
+    "ts-node-dev": "^1.0.0-pre.43",
     "typescript": "^3.2.1"
   },
   "scripts": {
     "start": "ts-node src/server.ts",
-    "watch": "tsc --watch",
-    "build": "rm -rf ./dist && tsc"
+    "watch": "ts-node-dev --respawn --transpileOnly src/server.ts",
+    "build": "rm -rf ./dist && tsc",
+    "test": "jest --coverage"
   },
   "require": [
     "ts-node/register"
-  ]
+  ],
+  "dependencies": {
+    "@babel/plugin-proposal-decorators": "^7.6.0",
+    "@overnightjs/core": "^1.6.9",
+    "@overnightjs/logger": "^1.1.9"
+  }
 }

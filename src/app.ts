@@ -1,22 +1,40 @@
-import * as express from "express"
 import * as bodyParser from "body-parser"
-import { ApiRoutes } from "./routes"
+import {Server} from '@overnightjs/core'
+import {Logger} from '@overnightjs/logger'
+
+import * as routes from './routes'
 
 
-export class App {
-  public app: express.Application
-  public routePrv: ApiRoutes = new ApiRoutes()
+export class App extends Server {
 
-  constructor() {
-    this.app = express()
-    this.config()
-    this.routePrv.routes(this.app)  
-  }
+	private readonly SERVER_STARTED = 'Example server started on port: '
 
-  private config(): void {
-    // support application/json
-    this.app.use(bodyParser.json())
-    //support application/x-www-form-urlencoded post data
-    this.app.use(bodyParser.urlencoded({ extended: false }))
-  }
+	constructor() {
+		super(true)
+		this.app.use(bodyParser.json())
+		this.app.use(bodyParser.urlencoded({extended: true}))
+		this.setupControllers()
+	}
+
+
+	private setupControllers(): void {
+		const ctlrInstances = []
+		for (const name in routes) {
+			if (routes.hasOwnProperty(name)) {
+				const controller = (routes as any)[name]
+				ctlrInstances.push(new controller())
+			}
+		}
+		super.addControllers(ctlrInstances)
+	}
+
+
+	public start(port: number): void {
+		this.app.get('*', (req, res) => {
+			res.send(this.SERVER_STARTED + port)
+		})
+		this.app.listen(port, () => {
+			Logger.Imp(this.SERVER_STARTED + port)
+		})
+	}
 }
