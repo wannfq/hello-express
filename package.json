@@ -12,7 +12,7 @@
     "@types/node": "^10.12.12",
     "babel-jest": "^24.9.0",
     "body-parser": "^1.18.3",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "jest": "^24.9.0",
     "mongoose": "^5.7.5",
     "ts-jest": "^24.1.0",
